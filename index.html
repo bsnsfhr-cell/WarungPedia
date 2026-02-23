@@ -561,6 +561,58 @@
         </div>
     </div>
 
+<!-- CONTAINER KATALOG -->
+<div id="productList" class="product-container"></div>
+
+<style>
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+    padding: 15px;
+}
+
+.product-card {
+    position: relative;
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: 0.2s ease-in-out;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+}
+
+.product-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.product-card h3 {
+    font-size: 14px;
+    margin: 8px 0 5px;
+}
+
+.price {
+    font-weight: bold;
+    color: #111;
+}
+
+.badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: #111;
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 20px;
+}
+</style>
+
 <script>
 const products = [
     { id: 10, name: "AI BLACKBOX", price: 15000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1675271591211-126ad94e495d?w=200&h=200&fit=crop" },
@@ -572,42 +624,34 @@ const products = [
     { id: 17, name: "CAPCUT", price: 15000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1596443686812-2f45229eebc3?w=200&h=200&fit=crop" },
     { id: 18, name: "CATCHPLAY", price: 8000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=200&h=200&fit=crop" },
     { id: 20, name: "CHATGPT", price: 28000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=200&h=200&fit=crop" },
-    { id: 21, name: "CRUNCHYROLL", price: 10000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1616469829581-73993eb86b02?w=200&h=200&fit=crop" },
-    { id: 22, name: "DISNEY", price: 25000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1616469829581-73993eb86b02?w=200&h=200&fit=crop" },
-    { id: 23, name: "DRAMABOX", price: 18000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=200&h=200&fit=crop" },
-    { id: 25, name: "FIZZO", price: 10000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=200&h=200&fit=crop" },
-    { id: 26, name: "GEMINI AI", price: 25000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1676299081847-824916de030a?w=200&h=200&fit=crop" },
-    { id: 27, name: "GETCONTACT", price: 8000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=200&h=200&fit=crop" },
-    { id: 28, name: "GOOGLE DRIVE", price: 25000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=200&h=200&fit=crop" },
-    { id: 29, name: "HBO", price: 18000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=200&h=200&fit=crop" },
     { id: 30, name: "ICLOUD", price: 300000, duration: "1 Tahun", img: "https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=200&h=200&fit=crop" },
-    { id: 31, name: "IQIYI", price: 12000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1616469829581-73993eb86b02?w=200&h=200&fit=crop" },
-    { id: 32, name: "LIGHTROOM", price: 13000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=200&h=200&fit=crop" },
-    { id: 33, name: "LOKLOK", price: 20000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=200&h=200&fit=crop" },
-    { id: 34, name: "MEITU", price: 20000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1596443686812-2f45229eebc3?w=200&h=200&fit=crop" },
-    { id: 35, name: "MOVIEBOX", price: 10000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=200&h=200&fit=crop" },
     { id: 36, name: "NETFLIX", price: 30000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=200&h=200&fit=crop" },
-    { id: 37, name: "PICSART", price: 15000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=200&h=200&fit=crop" },
-    { id: 38, name: "PRIME VIDIO", price: 13000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1616469829581-73993eb86b02?w=200&h=200&fit=crop" },
-    { id: 39, name: "RCTI+", price: 25000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=200&h=200&fit=crop" },
-    { id: 40, name: "REEL SHORT", price: 15000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=200&h=200&fit=crop" },
-    { id: 41, name: "REMINI", price: 5000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=200&h=200&fit=crop" },
-    { id: 42, name: "SCRIBD", price: 10000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=200&h=200&fit=crop" },
-    { id: 43, name: "SPOTIFY", price: 20000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1614680376593-902f74cc0d41?w=200&h=200&fit=crop" },
-    { id: 44, name: "TERABOX", price: 12000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=200&h=200&fit=crop" },
-    { id: 45, name: "TRADING VIEW", price: 15000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1611974714158-f88c5270c6f2?w=200&h=200&fit=crop" },
-    { id: 46, name: "VIDIO", price: 25000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=200&h=200&fit=crop" },
-    { id: 47, name: "VISION", price: 20000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=200&h=200&fit=crop" },
     { id: 48, name: "VIU", price: 5000, duration: "1 Tahun", img: "https://images.unsplash.com/photo-1616469829581-73993eb86b02?w=200&h=200&fit=crop" },
-    { id: 49, name: "VPN", price: 10000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=200&h=200&fit=crop" },
-    { id: 50, name: "WATTPAD", price: 8000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=200&h=200&fit=crop" },
-    { id: 51, name: "WETV", price: 20000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1616469829581-73993eb86b02?w=200&h=200&fit=crop" },
-    { id: 52, name: "WIBUKU", price: 10000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1596443686812-2f45229eebc3?w=200&h=200&fit=crop" },
-    { id: 53, name: "WPS OFFICE", price: 8000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=200&h=200&fit=crop" },
-    { id: 54, name: "YOUKU", price: 10000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1616469829581-73993eb86b02?w=200&h=200&fit=crop" },
-    { id: 55, name: "YOUTUBE", price: 10000, duration: "1 Bulan", img: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=200&h=200&fit=crop" },
     { id: 56, name: "ZOOM", price: 12000, duration: "14 Hari", img: "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?w=200&h=200&fit=crop" }
 ];
+
+function renderProducts() {
+    const container = document.getElementById("productList");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    products.forEach(product => {
+        container.innerHTML += `
+            <div class="product-card">
+                <div class="badge">${product.duration}</div>
+                <img src="${product.img}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p class="price">Rp ${product.price.toLocaleString("id-ID")}</p>
+            </div>
+        `;
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    renderProducts();
+});
+</script>
 
         let cart = [];
 function renderProducts() {
