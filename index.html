@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PandaPedia | Digital & Service Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; padding-bottom: 90px; }
+        .page { display: none; min-height: 100vh; }
+        .page.active { display: block; animation: fadeIn 0.2s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .product-card { 
+            background: white; 
+            border-radius: 1.25rem; 
+            border: 1px solid #f1f5f9; 
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            transition: all 0.2s;
+        }
+        
+        .hero-bg {
+            background-color: #0891b2;
+            background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .variant-card {
+            border: 2px solid #f1f5f9;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .variant-card.selected {
+            border-color: #0891b2;
+            background-color: #f0f9ff;
+        }
+
+        .reseller-card {
+            background: white;
+            border: 1px solid #f1f5f9;
+            border-radius: 2rem;
+            transition: all 0.3s;
+        }
+        .reseller-card:hover { transform: translateY(-5px); border-color: #0891b2; }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        
+        .tab-btn {
+            position: relative;
+            padding-bottom: 10px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #94a3b8;
+        }
+        
+        .tab-btn.active {
+            color: #0891b2;
+        }
+        
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: #0891b2;
+            border-radius: 99px;
+        }
+
+        .nav-active { color: #0891b2 !important; }
+
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            transition: all 0.2s;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Top Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2" onclick="showPage('home-page')">
+                <div class="w-9 h-9 bg-gradient-to-br from-cyan-500 to-cyan-700 rounded-xl flex items-center justify-center text-white font-extrabold shadow-lg shadow-cyan-100">P</div>
+                <div>
+                    <span class="block font-black text-sm tracking-tighter uppercase leading-none">PandaPedia</span>
+                    <span class="text-[8px] font-bold text-cyan-600 uppercase tracking-[0.2em]">Digital Store</span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button class="w-9 h-9 rounded-xl bg-slate-50 flex items-center justify-center text-slate-600 border border-slate-100"><i class="fa-solid fa-bolt text-xs text-yellow-500"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Bottom Navigation -->
+    <div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-white/90 backdrop-blur-lg border border-slate-100 px-8 py-3 mb-4 rounded-[2rem] z-[100] flex justify-around items-center shadow-xl">
+        <button onclick="showPage('home-page')" class="flex flex-col items-center space-y-1 nav-btn nav-active" id="nav-home">
+            <i class="fa-solid fa-house-chimney text-lg"></i>
+            <span class="text-[9px] font-bold uppercase tracking-wider">Beranda</span>
+        </button>
+        <button onclick="showPage('reseller-page')" class="flex flex-col items-center space-y-1 text-slate-400 nav-btn" id="nav-reseller">
+            <i class="fa-solid fa-users-gear text-lg"></i>
+            <span class="text-[9px] font-bold uppercase tracking-wider">Reseller</span>
+        </button>
+    </div>
+
+    <!-- Home Page -->
+    <div id="home-page" class="page active pt-16">
+        <!-- Hero Section -->
+        <section class="hero-bg pt-10 pb-20 px-6 text-center text-white rounded-b-[3.5rem] shadow-2xl shadow-cyan-100/50">
+            <h1 class="text-3xl font-black uppercase italic mb-2 tracking-tight">SOLUSI DIGITAL</h1>
+            <p class="text-[10px] font-bold opacity-80 mb-8 uppercase tracking-widest">Jasa Profesional & Produk Premium Terpercaya</p>
+            
+            <div class="flex items-center justify-between mb-4 px-2">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-hand-holding-heart text-pink-400"></i>
+                    <span class="text-[11px] font-black uppercase italic">Layanan Jasa</span>
+                </div>
+                <div class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[9px] font-black">TOP SERVICE</div>
+            </div>
+            
+            <!-- Service Section (Old Flash Sale) -->
+            <div class="flex overflow-x-auto gap-4 no-scrollbar pb-4" id="service-list"></div>
+        </section>
+
+        <!-- Search Bar -->
+        <div class="px-6 -mt-9 mb-10">
+            <div class="bg-white rounded-[2rem] shadow-xl p-1.5 flex items-center border border-slate-100">
+                <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="Cari layanan atau produk..." class="flex-1 bg-transparent px-6 py-4 text-xs font-semibold outline-none">
+                <div class="w-12 h-12 bg-cyan-600 rounded-[1.5rem] flex items-center justify-center text-white shadow-lg shadow-cyan-200"><i class="fa-solid fa-magnifying-glass"></i></div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="px-6 mb-10 grid grid-cols-3 gap-3">
+            <div class="bg-white p-3 rounded-2xl border border-slate-100 text-center">
+                <p class="text-[14px] font-black text-cyan-600">10k+</p>
+                <p class="text-[8px] font-bold text-slate-400 uppercase">Pelanggan</p>
+            </div>
+            <div class="bg-white p-3 rounded-2xl border border-slate-100 text-center">
+                <p class="text-[14px] font-black text-cyan-600">50k+</p>
+                <p class="text-[8px] font-bold text-slate-400 uppercase">Transaksi</p>
+            </div>
+            <div class="bg-white p-3 rounded-2xl border border-slate-100 text-center">
+                <p class="text-[14px] font-black text-cyan-600">4.9</p>
+                <p class="text-[8px] font-bold text-slate-400 uppercase">Rating</p>
+            </div>
+        </div>
+
+        <!-- Reseller Banner -->
+        <div class="px-6 mb-10">
+            <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-[2rem] p-6 relative overflow-hidden text-white shadow-xl">
+                <div class="relative z-10">
+                    <h3 class="text-sm font-black uppercase italic mb-1">Gabung Reseller!</h3>
+                    <p class="text-[9px] font-medium opacity-70 mb-4 max-w-[200px]">Dapatkan harga lebih murah dan akses panel khusus untuk jualan kembali.</p>
+                    <button onclick="showPage('reseller-page')" class="px-4 py-2 bg-cyan-500 rounded-xl text-[9px] font-black uppercase tracking-wider">Daftar Sekarang</button>
+                </div>
+                <i class="fa-solid fa-crown absolute right-[-10px] top-[-10px] text-8xl text-white/5 rotate-12"></i>
+            </div>
+        </div>
+
+        <!-- Main Catalog -->
+        <div class="px-5 mb-12">
+            <div class="flex items-center space-x-2 mb-6 px-1">
+                <div class="w-10 h-10 bg-cyan-50 text-cyan-600 rounded-xl flex items-center justify-center border border-cyan-100"><i class="fa-solid fa-border-all"></i></div>
+                <div>
+                    <h2 class="text-xs font-black uppercase text-slate-800 tracking-tight">Katalog Produk Digital</h2>
+                    <p class="text-[9px] font-bold text-slate-400 uppercase">Produk premium harga paling kompetitif</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4" id="main-catalog"></div>
+        </div>
+
+        <!-- Footer Social -->
+        <footer class="bg-white border-t border-slate-100 pt-10 pb-8 px-8">
+            <div class="text-center mb-8">
+                <div class="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-black mx-auto mb-4">P</div>
+                <h3 class="font-black text-sm uppercase italic">PandaPedia Store</h3>
+                <p class="text-[10px] text-slate-400 font-bold mt-1 uppercase tracking-widest">Connect with us on Social Media</p>
+            </div>
+            
+            <div class="flex justify-center gap-4 mb-10">
+                <a href="#" class="social-btn bg-green-50 text-green-600 border border-green-100"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="social-btn bg-pink-50 text-pink-600 border border-pink-100"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="social-btn bg-slate-900 text-white"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+
+            <p class="text-center text-[9px] font-bold text-slate-300 uppercase tracking-widest">© 2024 PandaPedia Store. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Detail/Checkout Page -->
+    <div id="detail-page" class="page pt-6 pb-28 bg-white">
+        <div class="px-6 max-w-lg mx-auto">
+            <div class="flex items-center gap-4 mb-8">
+                <button onclick="showPage('home-page')" class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 border border-slate-100"><i class="fa-solid fa-chevron-left"></i></button>
+                <h2 class="text-sm font-black uppercase text-slate-800 italic tracking-tight">Detail Pesanan</h2>
+            </div>
+
+            <div id="checkout-header" class="flex items-center gap-5 mb-10 p-4 bg-slate-50 rounded-[2rem] border border-slate-100"></div>
+
+            <div class="flex border-b border-slate-100 mb-8 gap-10 px-2">
+                <button id="tab-desc-btn" onclick="switchTab('desc')" class="tab-btn active">Deskripsi</button>
+                <button id="tab-tnc-btn" onclick="switchTab('tnc')" class="tab-btn">Syarat & Ketentuan</button>
+            </div>
+
+            <div id="tab-content" class="text-[11px] text-slate-500 font-medium leading-relaxed mb-12 px-2 min-h-[60px]"></div>
+
+            <div class="mb-12">
+                <div class="flex items-center justify-between mb-5">
+                    <h3 class="text-[10px] font-black uppercase text-slate-800 tracking-[0.15em]">Pilih Paket / Variasi</h3>
+                    <span class="text-[8px] font-black bg-cyan-600 text-white px-3 py-1 rounded-full shadow-lg shadow-cyan-100">READY</span>
+                </div>
+                <div id="variants-list" class="space-y-4"></div>
+            </div>
+
+            <div class="space-y-5">
+                <div class="bg-amber-50 border border-amber-100 p-5 rounded-[1.5rem] flex items-start gap-4">
+                    <div class="text-amber-500 mt-1"><i class="fa-solid fa-circle-exclamation text-xl"></i></div>
+                    <div>
+                        <h4 class="text-[10px] font-black text-amber-800 uppercase italic">Catatan Pembeli</h4>
+                        <p class="text-[9px] text-amber-700/80 leading-relaxed font-semibold">Harap masukkan data (Email/ID/Link) dengan benar. Kami akan memproses sesuai data yang dikirim.</p>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <input type="text" id="cust-target" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 text-xs font-bold outline-none focus:border-cyan-500 focus:bg-white transition-all shadow-sm" placeholder="Data (Email/ID/Link Tujuan)">
+                    <div class="absolute right-6 top-1/2 -translate-y-1/2 text-slate-300"><i class="fa-solid fa-pen-to-square"></i></div>
+                </div>
+                <button onclick="processPayment()" class="w-full py-5 bg-gradient-to-r from-cyan-600 to-cyan-500 text-white rounded-[1.5rem] font-black uppercase text-sm shadow-2xl shadow-cyan-200 mt-6 active:scale-95 transition-transform">Lanjutkan Pembayaran</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reseller Page -->
+    <div id="reseller-page" class="page pt-20 px-6 pb-20">
+        <div class="text-center mb-10">
+            <h2 class="text-2xl font-black uppercase italic tracking-tighter">Partner Reseller</h2>
+            <p class="text-[10px] text-slate-400 font-bold mt-1 uppercase tracking-[0.2em]">Pilih paket jualan paling menguntungkan</p>
+        </div>
+
+        <div class="space-y-6 max-w-md mx-auto mb-10">
+            <!-- Paket 500k -->
+            <div class="reseller-card p-6 border-2 border-slate-50 shadow-sm relative overflow-hidden group">
+                <div class="absolute top-4 right-4 bg-slate-900 text-white text-[8px] font-black px-2 py-1 rounded-md">HEMAT</div>
+                <h3 class="text-sm font-black text-slate-800 uppercase mb-1">Reseller Basic</h3>
+                <p class="text-[10px] text-slate-400 font-bold uppercase mb-4 tracking-wider">Masa Aktif 5 Bulan</p>
+                <div class="flex items-baseline gap-1 mb-6">
+                    <span class="text-2xl font-black text-cyan-600 tracking-tighter">Rp 500.000</span>
+                    <span class="text-[10px] font-bold text-slate-300">/ 5 Bln</span>
+                </div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center gap-3 text-[10px] font-bold text-slate-600"><i class="fa-solid fa-circle-check text-cyan-500"></i> Harga Jauh Lebih Murah</li>
+                    <li class="flex items-center gap-3 text-[10px] font-bold text-slate-600"><i class="fa-solid fa-circle-check text-cyan-500"></i> Akses Panel Khusus Reseller</li>
+                    <li class="flex items-center gap-3 text-[10px] font-bold text-slate-600"><i class="fa-solid fa-circle-check text-cyan-500"></i> Support Group Reseller</li>
+                </ul>
+                <button onclick="window.open('https://wa.me/628976071999?text=Halo Admin, saya ingin daftar Reseller Basic 500rb.')" class="w-full py-4 bg-slate-50 group-hover:bg-cyan-600 group-hover:text-white rounded-2xl text-[10px] font-black uppercase transition-all">Pilih Paket</button>
+            </div>
+
+            <!-- Paket 1jt -->
+            <div class="reseller-card p-6 border-2 border-cyan-100 shadow-xl shadow-cyan-100/30 relative overflow-hidden group">
+                <div class="absolute top-4 right-4 bg-cyan-600 text-white text-[8px] font-black px-2 py-1 rounded-md">TERBAIK</div>
+                <h3 class="text-sm font-black text-slate-800 uppercase mb-1">Reseller VIP</h3>
+                <p class="text-[10px] text-slate-400 font-bold uppercase mb-4 tracking-wider">Masa Aktif Selamanya</p>
+                <div class="flex items-baseline gap-1 mb-6">
+                    <span class="text-2xl font-black text-cyan-600 tracking-tighter">Rp 1.000.000</span>
+                    <span class="text-[10px] font-bold text-slate-300">/ Permanen</span>
+                </div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center gap-3 text-[10px] font-bold text-slate-600"><i class="fa-solid fa-star text-yellow-400"></i> Harga VIP (Termurah)</li>
+                    <li class="flex items-center gap-3 text-[10px] font-bold text-slate-600"><i class="fa-solid fa-star text-yellow-400"></i> Lifetime Access (Permanen)</li>
+                    <li class="flex items-center gap-3 text-[10px] font-bold text-slate-600"><i class="fa-solid fa-star text-yellow-400"></i> Prioritas Update Produk</li>
+                </ul>
+                <button onclick="window.open('https://wa.me/628976071999?text=Halo Admin, saya ingin daftar Reseller VIP Permanen 1jt.')" class="w-full py-4 bg-cyan-600 text-white rounded-2xl text-[10px] font-black uppercase shadow-lg shadow-cyan-200">Daftar Permanen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Page -->
+    <div id="payment-page" class="page pt-6 pb-12 bg-slate-50">
+        <div class="px-6 max-w-md mx-auto text-center">
+            <div class="bg-white rounded-[3.5rem] p-10 shadow-2xl border border-slate-100">
+                <div class="flex items-center justify-between mb-8">
+                     <button onclick="showPage('detail-page')" class="text-slate-400"><i class="fa-solid fa-chevron-left"></i></button>
+                     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo_QRIS.svg" class="h-6">
+                     <div class="w-5"></div>
+                </div>
+                <div class="bg-slate-50 p-6 rounded-[2.5rem] inline-block mb-10 border border-slate-100 shadow-inner">
+                    <img id="qris-img" class="w-64 h-64 rounded-2xl mx-auto shadow-sm">
+                </div>
+                <div class="bg-slate-900 rounded-[2rem] p-7 text-white text-left space-y-4 mb-10 shadow-xl shadow-slate-200">
+                    <div class="flex justify-between items-center pb-3 border-b border-white/10">
+                        <span class="text-[9px] font-black uppercase text-slate-400 tracking-widest">Produk/Jasa</span>
+                        <span id="p-name" class="text-[11px] font-black uppercase italic"></span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-[9px] font-black uppercase text-slate-400 tracking-widest">Total Bayar</span>
+                        <span id="p-total" class="text-xl font-black text-cyan-400 tracking-tighter"></span>
+                    </div>
+                </div>
+                <button onclick="confirmWA()" class="w-full py-5 bg-green-500 text-white rounded-[1.5rem] font-black uppercase text-xs flex items-center justify-center gap-3 shadow-2xl shadow-green-100 active:scale-95 transition-all">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> Kirim Bukti Pembayaran
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ADMIN_WA = "628976071999";
+        let activeTab = 'desc';
+        let selectedProduct = null;
+        let selectedVariantIdx = 0;
+
+        // List Jasa Utama (6 Produk)
+        const services = [
+            { id: 's1', name: "JASA PEMBUATAN WEB", price: 250000, image: "https://placehold.co/400x400/0891b2/white?text=WEB+DEV", desc: "Pembuatan website Landing Page, Company Profile, atau Toko Online profesional. Cepat, responsif, dan SEO Friendly.", sold: "120", isService: true },
+            { id: 's2', name: "JUAL AKUN TIKTOK", price: 150000, image: "https://placehold.co/400x400/000000/white?text=TIKTOK+ACC", desc: "Tersedia akun TikTok dengan followers real (1k - 50k+). Siap Live, siap jualan, dan aman 100%.", sold: "450", isService: true },
+            { id: 's3', name: "JASA DESAIN GRAFIS", price: 50000, image: "https://placehold.co/400x400/7c3aed/white?text=DESIGN", desc: "Pembuatan Logo, Banner, Postingan Instagram, dan desain marketing lainnya dengan kualitas premium.", sold: "890", isService: true },
+            { id: 's4', name: "KELOLA SOSMED", price: 500000, image: "https://placehold.co/400x400/f43f5e/white?text=SOCIAL+MGMT", desc: "Jasa admin sosial media. Upload konten, balas chat, dan riset hashtag untuk menaikkan engagement.", sold: "85", isService: true },
+            { id: 's5', name: "OPTIMASI SEO", price: 300000, image: "https://placehold.co/400x400/10b981/white?text=SEO+EXP", desc: "Naikkan peringkat website Anda di Google. Riset keyword dan backlink berkualitas untuk trafik organik.", sold: "110", isService: true },
+            { id: 's6', name: "PENULISAN ARTIKEL", price: 25000, image: "https://placehold.co/400x400/fbbf24/white?text=CONTENT", desc: "Jasa tulis artikel blog/website bahasa Indonesia/Inggris. Lolos Copyscape dan ramah SEO.", sold: "1.2rb", isService: true }
+        ];
+
+        // List Produk Digital (Total tetap dipacu ke 46)
+        const baseProducts = [
+            { id: 1, name: "YOUTUBE PREMIUM", price: 10000, image: "https://placehold.co/400x400/ff0000/white?text=YOUTUBE", desc: "YouTube tanpa iklan & latar belakang.", sold: "2.4rb" },
+            { id: 2, name: "NETFLIX UHD 4K", price: 30000, image: "https://placehold.co/400x400/e50914/white?text=NETFLIX", desc: "Nonton film 4K UHD akun Shared.", sold: "1.2rb" },
+            { id: 3, name: "CHATGPT PLUS", price: 28000, image: "https://placehold.co/400x400/10b981/white?text=CHATGPT", desc: "Akses model GPT-4 terbaru.", sold: "850" },
+            { id: 4, name: "CANVA PRO", price: 5000, image: "https://placehold.co/400x400/7c3aed/white?text=CANVA", desc: "Akses jutaan elemen premium.", sold: "5.1rb" },
+            { id: 5, name: "SPOTIFY FAMILY", price: 20000, image: "https://placehold.co/400x400/1db954/white?text=SPOTIFY", desc: "Musik tanpa iklan selamanya.", sold: "3.7rb" },
+            { id: 6, name: "VIDIO PLATINUM", price: 25000, image: "https://placehold.co/400x400/f43f5e/white?text=VIDIO", desc: "Streaming Liga Inggris & Series.", sold: "920" },
+            { id: 7, name: "VIU PREMIUM", price: 5000, image: "https://placehold.co/400x400/fbbf24/white?text=VIU", desc: "Drama Korea terbaru terlengkap.", sold: "1.5rb" },
+            { id: 8, name: "REMINI PRO AI", price: 5000, image: "https://placehold.co/400x400/475569/white?text=REMINI", desc: "Jernihkan foto buram jadi HD.", sold: "2.8rb" },
+        ];
+
+        const allCatalog = [...baseProducts];
+        // Tambahkan produk dummy agar total katalog menjadi 46
+        while(allCatalog.length < 46) {
+            let p = baseProducts[allCatalog.length % baseProducts.length];
+            allCatalog.push({...p, id: 'cat' + allCatalog.length});
+        }
+
+        function init() {
+            renderHome();
+        }
+
+        function renderHome() {
+            const main = document.getElementById('main-catalog');
+            const serviceCont = document.getElementById('service-list');
+            
+            // Render 6 Jasa (Flash Sale Area)
+            serviceCont.innerHTML = services.map(s => `
+                <div class="min-w-[150px] bg-white rounded-[1.5rem] p-3 shadow-xl shadow-cyan-900/10 border border-white/50" onclick="openCheckout('${s.id}', true)">
+                    <img src="${s.image}" class="w-full aspect-square rounded-[1.2rem] object-cover mb-3">
+                    <h3 class="text-[9px] font-black text-slate-800 truncate mb-1">${s.name}</h3>
+                    <div class="flex items-center justify-between">
+                        <p class="text-[11px] font-black text-cyan-600">Rp ${s.price.toLocaleString('id-ID')}</p>
+                        <span class="text-[7px] font-black bg-pink-50 text-pink-600 px-1.5 py-0.5 rounded-md">PRO</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Render 46 Katalog Utama
+            main.innerHTML = allCatalog.map(p => `
+                <div class="product-card" onclick="openCheckout('${p.id}', false)">
+                    <div class="relative w-full aspect-square bg-slate-100 overflow-hidden">
+                        <img src="${p.image}" class="w-full h-full object-cover">
+                        <div class="absolute bottom-3 left-3 bg-white/90 backdrop-blur px-2.5 py-1.5 rounded-xl text-[8px] font-black text-slate-600 shadow-sm">${p.sold} Terjual</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-[10px] font-black text-slate-800 uppercase truncate mb-1 tracking-tight">${p.name}</h3>
+                        <p class="text-[12px] font-black text-cyan-600">Rp ${p.price.toLocaleString('id-ID')}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openCheckout(id, isService) {
+            if(isService) {
+                selectedProduct = services.find(s => s.id === id);
+            } else {
+                selectedProduct = allCatalog.find(p => p.id === id);
+            }
+            
+            selectedVariantIdx = 0; 
+            
+            document.getElementById('checkout-header').innerHTML = `
+                <img src="${selectedProduct.image}" class="w-20 h-20 rounded-2xl object-cover shadow-2xl shadow-slate-200">
+                <div>
+                    <h1 class="text-xl font-black text-slate-900 leading-none italic mb-2 uppercase">${selectedProduct.name}</h1>
+                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Estimasi Mulai</p>
+                    <p class="text-xl font-black text-cyan-600 tracking-tight">Rp ${selectedProduct.price.toLocaleString('id-ID')}</p>
+                </div>
+            `;
+            
+            switchTab('desc');
+            renderVariants(isService);
+            showPage('detail-page');
+        }
+
+        function switchTab(tab) {
+            activeTab = tab;
+            const content = document.getElementById('tab-content');
+            const descBtn = document.getElementById('tab-desc-btn');
+            const tncBtn = document.getElementById('tab-tnc-btn');
+
+            if(tab === 'desc') {
+                content.innerText = selectedProduct.desc;
+                descBtn.classList.add('active');
+                tncBtn.classList.remove('active');
+            } else {
+                content.innerHTML = `
+                    <ul class="space-y-2">
+                        <li>• Estimasi pengerjaan sesuai dengan paket yang dipilih.</li>
+                        <li>• Garansi revisi atau support pasca transaksi (untuk Jasa).</li>
+                        <li>• Segala bentuk login data aman dan bersifat rahasia.</li>
+                        <li>• Transaksi yang sudah diproses tidak dapat dibatalkan.</li>
+                    </ul>
+                `;
+                tncBtn.classList.add('active');
+                descBtn.classList.remove('active');
+            }
+        }
+
+        function renderVariants(isService) {
+            const list = document.getElementById('variants-list');
+            const basePrice = selectedProduct.price;
+            
+            // Dynamic variants based on product type
+            let variants = [];
+            if(isService) {
+                variants = [
+                    { title: "Paket Silver / Starter", price: basePrice, badge: "MOST POPULAR" },
+                    { title: "Paket Gold / Business", price: Math.floor(basePrice * 2.5), badge: "REKOMENDASI" },
+                    { title: "Paket Platinum / VIP", price: Math.floor(basePrice * 5), badge: "FULL SERVICE" }
+                ];
+            } else {
+                variants = [
+                    { title: "Paket 1 Bulan - Hemat", price: basePrice, badge: "UTAMA" },
+                    { title: "Paket 2 Bulan - Standar", price: Math.floor(basePrice * 1.8), badge: "BONUS" },
+                    { title: "Paket 3 Bulan - Best Value", price: Math.floor(basePrice * 2.5), badge: "HEMAT 20%" }
+                ];
+            }
+
+            list.innerHTML = variants.map((v, idx) => `
+                <div class="variant-card p-5 rounded-[1.5rem] flex items-center justify-between ${idx === selectedVariantIdx ? 'selected' : 'bg-white'}" onclick="selectVariant(${idx}, ${v.price}, '${v.title}')">
+                    <div class="flex items-center gap-4">
+                        <div class="w-6 h-6 rounded-full border-2 border-slate-200 flex items-center justify-center ${idx === selectedVariantIdx ? 'border-cyan-600 bg-cyan-600 shadow-lg shadow-cyan-100' : ''}">
+                            ${idx === selectedVariantIdx ? '<i class="fa-solid fa-check text-[10px] text-white"></i>' : ''}
+                        </div>
+                        <div>
+                            <h4 class="text-[12px] font-black text-slate-800">${v.title}</h4>
+                            <div class="flex items-center gap-2 mt-1.5">
+                                <span class="text-[7px] font-black text-green-600 bg-green-50 px-2 py-0.5 rounded uppercase tracking-wider italic">Verified Service</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[13px] font-black text-cyan-600">Rp ${v.price.toLocaleString('id-ID')}</p>
+                        <span class="text-[7px] font-black bg-slate-900 text-white px-2 py-1 rounded-md uppercase mt-1 inline-block">${v.badge}</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            selectedProduct.currentPrice = variants[selectedVariantIdx].price;
+            selectedProduct.currentDuration = variants[selectedVariantIdx].title;
+        }
+
+        function selectVariant(idx, price, title) {
+            selectedVariantIdx = idx;
+            selectedProduct.currentPrice = price;
+            selectedProduct.currentDuration = title;
+            // Update the UI
+            document.querySelectorAll('.variant-card').forEach((el, i) => {
+                if(i === idx) {
+                    el.classList.add('selected');
+                    el.classList.remove('bg-white');
+                } else {
+                    el.classList.remove('selected');
+                    el.classList.add('bg-white');
+                }
+            });
+            // Re-render to update checkmarks
+            renderVariants(selectedProduct.isService);
+        }
+
+        function processPayment() {
+            const target = document.getElementById('cust-target').value;
+            if(!target) return alert("Harap isi data tujuan!");
+
+            const unique = Math.floor(Math.random() * 900) + 100;
+            const finalTotal = selectedProduct.currentPrice + unique;
+
+            document.getElementById('p-name').innerText = selectedProduct.name;
+            document.getElementById('p-total').innerText = `Rp ${finalTotal.toLocaleString('id-ID')}`;
+            document.getElementById('qris-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=PANDA-${finalTotal}`;
+            
+            selectedProduct.finalTotal = finalTotal;
+            selectedProduct.target = target;
+            showPage('payment-page');
+        }
+
+        function confirmWA() {
+            const msg = `*ORDER PANDAPEDIA*%0A%0A*Layanan:* ${selectedProduct.name}%0A*Paket:* ${selectedProduct.currentDuration}%0A*Total:* Rp ${selectedProduct.finalTotal.toLocaleString('id-ID')}%0A*Target/Data:* ${selectedProduct.target}%0A%0A_Halo Admin, saya sudah melakukan pembayaran. Mohon dikerjakan/dikirim ya!_`;
+            window.open(`https://wa.me/${ADMIN_WA}?text=${msg}`);
+        }
+
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const targetPage = document.getElementById(id);
+            if(targetPage) targetPage.classList.add('active');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('nav-active'));
+            const navId = 'nav-' + id.split('-')[0];
+            const activeNav = document.getElementById(navId);
+            if(activeNav) activeNav.classList.add('nav-active');
+            
+            window.scrollTo(0,0);
+        }
+
+        function filterProducts() {
+            const q = document.getElementById('search-input').value.toLowerCase();
+            const filtered = allCatalog.filter(p => p.name.toLowerCase().includes(q));
+            const main = document.getElementById('main-catalog');
+            main.innerHTML = filtered.map(p => `
+                <div class="product-card" onclick="openCheckout('${p.id}', false)">
+                    <div class="relative w-full aspect-square bg-slate-100 overflow-hidden">
+                        <img src="${p.image}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-[10px] font-black text-slate-800 uppercase truncate mb-1">${p.name}</h3>
+                        <p class="text-[12px] font-black text-cyan-600">Rp ${p.price.toLocaleString('id-ID')}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
+
